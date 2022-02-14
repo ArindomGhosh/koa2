@@ -1,0 +1,82 @@
+buildscript {
+    ext {
+        compose_version = '1.1.0'
+        lifecycle_version = '2.4.1'
+        androidx_core_version = '1.7.0'
+        coroutine_version = "1.6.0"
+        material_version = '1.4.0'
+        appcompat_version = '1.4.1'
+        nav_version = '2.4.1'
+        hilt_version = '2.38.1'
+        retrofit_version = '2.9.0'
+        room_version = "2.4.1"
+
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+    }
+}// Top-level build file where you can add configuration options common to all sub-projects/modules.
+plugins {
+    id 'com.android.application' version '7.1.1' apply false
+    id 'com.android.library' version '7.1.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.6.10' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+ext.deps =
+        [
+                androidMaterial          : "com.google.android.material:material:$material_version",
+
+                appCompat                : "androidx.appcompat:appcompat:$appcompat_version",
+
+                navigationComponent      : "androidx.navigation:navigation-fragment-ktx:$nav_version",
+                navigationExt            : "androidx.navigation:navigation-ui-ktx:$nav_version",
+
+                //kotlin
+                kotlinCoroutineCore      : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version",
+
+                //core kotlin Ext
+                coreKotlinExt            : "androidx.core:core-ktx:$androidx_core_version",
+
+                //compose
+                composeUI                : "androidx.compose.ui:ui:$compose_version",
+                composeMaterial          : "androidx.compose.material:material:$compose_version",
+                composeToolingPreview    : "androidx.compose.ui:ui-tooling-preview:$compose_version",
+                activityCompose          : 'androidx.activity:activity-compose:1.3.1',
+
+
+                //lifecycle
+                lifeCycleRuntimeKotlinExt: "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
+                lifecycleViewmodelKtx    : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+                lifecycleViewmOdelCompose: "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version",
+
+                //hilt
+                hilt                     : "com.google.dagger:hilt-android:$hilt_version",
+
+                //test
+                junit                    : 'junit:junit:4.13.2',
+                androidJunit             : 'androidx.test.ext:junit:1.1.3',
+                androidEspresso          : 'androidx.test.espresso:espresso-core:3.4.0',
+                composeJunit             : "androidx.compose.ui:ui-test-junit4:$compose_version",
+                composeDebugTooling      : "androidx.compose.ui:ui-tooling:$compose_version",
+
+                //retrofit
+                retrofit                 : "com.squareup.retrofit2:retrofit:$retrofit_version",
+                retofitGsonConvertor     : "com.squareup.retrofit2:converter-gson:$retrofit_version",
+
+                //room
+                roomRuntime              : "androidx.room:room-runtime:$room_version",
+                roomKotlinExt            : "androidx.room:room-ktx:$room_version",
+
+                //kapt
+                hitKapt                  : "com.google.dagger:hilt-android-compiler:$hilt_version",
+                roomKapt                 : "androidx.room:room-compiler:$room_version"
+        ]
+
+
