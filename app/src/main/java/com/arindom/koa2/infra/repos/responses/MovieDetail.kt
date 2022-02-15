@@ -1,4 +1,4 @@
-package com.arindom.koa2.domain.repos.responses
+package com.arindom.koa2.infra.repos.responses
 
 import com.google.gson.annotations.SerializedName
 

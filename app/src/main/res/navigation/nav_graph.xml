@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/homeScreen"
-        android:name="com.arindom.koa2.presentation.features.search.HomeScreen"
+        android:name="com.arindom.koa2.presentation.screens.search.HomeScreen"
         android:label="HomeScreen" />
 </navigation>

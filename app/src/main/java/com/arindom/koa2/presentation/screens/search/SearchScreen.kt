@@ -1,4 +1,4 @@
-package com.arindom.koa2.presentation.features.search
+package com.arindom.koa2.presentation.screens.search
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -9,7 +9,8 @@ buildscript {
         nav_version = '2.4.1'
         hilt_version = '2.38.1'
         retrofit_version = '2.9.0'
-        room_version = "2.4.1"
+        room_version = '2.4.1'
+        okhttp_version= '4.9.3'
 
     }
     repositories {
@@ -69,6 +70,7 @@ ext.deps =
                 //retrofit
                 retrofit                 : "com.squareup.retrofit2:retrofit:$retrofit_version",
                 retofitGsonConvertor     : "com.squareup.retrofit2:converter-gson:$retrofit_version",
+                okHttpLogInterceptor   : "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
 
                 //room
                 roomRuntime              : "androidx.room:room-runtime:$room_version",

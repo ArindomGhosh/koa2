@@ -68,6 +68,7 @@ dependencies {
 
     implementation deps.retrofit
     implementation deps.retofitGsonConvertor
+    implementation deps.okHttpLogInterceptor
 
     implementation deps.roomRuntime
     implementation deps.roomKotlinExt

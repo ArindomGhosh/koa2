@@ -1,9 +1,9 @@
 package com.arindom.koa2.domain.mappers
 
 import com.arindom.koa2.domain.entities.MovieDetailsEntity
-import com.arindom.koa2.domain.repos.responses.MovieDetail
+import com.arindom.koa2.infra.repos.responses.MovieDetail
 
-class MoviesDetailsEntityMapper : IDomainMapper<MovieDetail, MovieDetailsEntity> {
+class MoviesDetailEntityMapper : IDomainMapper<MovieDetail, MovieDetailsEntity> {
     override fun mapToDomainModel(sourceModel: MovieDetail): MovieDetailsEntity {
         return MovieDetailsEntity(
             movieId = sourceModel.movieId!!,

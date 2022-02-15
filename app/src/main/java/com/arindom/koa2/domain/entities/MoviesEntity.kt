@@ -7,6 +7,8 @@ data class MoviesEntity(
         val movieId:String,
         val movieName:String,
         val moviePoster:String,
-        val year:String
+        val year:String,
+        //todo covert to enums [Movie,Series]
+        val type:String
     )
 }
