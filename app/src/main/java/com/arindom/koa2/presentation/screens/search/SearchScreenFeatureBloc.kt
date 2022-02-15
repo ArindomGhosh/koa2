@@ -9,29 +9,35 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchScreenFeatureBloc @Inject constructor(
-    private val movieDetailUseCase: MovieDetailUseCase,
     private val searchMoviesUseCase: SearchMoviesUseCase
 ) :
-    FeatureBloc<SearchScreenEvent, SearchScreenState>(SearchScreenState("Hello")) {
+    FeatureBloc<SearchScreenEvent, SearchScreenState>(SearchScreenState()) {
     override fun postWish(wish: SearchScreenEvent) {
-        getMovieDetails()
         when (wish) {
-            is SearchScreenEvent.Greetings -> {
-                postUiState(newUiState = uiState.value.copy(message = wish.name))
+            is SearchScreenEvent.MovieQueried -> {
+                getMovies(wish.name)
             }
         }
     }
 
-    //tt0372784
-    private fun getMovieDetails() {
+    private fun getMovies(name: String) {
         executeAsyncTask {
+            postUiState(newUiState = uiState.value.isLoading(name))
             when (val movieDetailWrapper =
-                searchMoviesUseCase.getMoviesForName("bbbbb")) {
+                searchMoviesUseCase.getMoviesForName(name)) {
                 is DomainWrapper.Error -> {
-                    println(movieDetailWrapper.uiError.message)
+                    postUiState(
+                        uiState.value.onError(
+                            uiError = movieDetailWrapper.uiError
+                        )
+                    )
                 }
                 is DomainWrapper.Success -> {
-                    println(movieDetailWrapper.data.movieList)
+                    postUiState(
+                        uiState.value.onData(
+                            moviesEntity = movieDetailWrapper.data,
+                        )
+                    )
                 }
             }
         }

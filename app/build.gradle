@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -72,6 +73,8 @@ dependencies {
 
     implementation deps.roomRuntime
     implementation deps.roomKotlinExt
+
+    implementation deps.composeCoil
 
     implementation deps.lifeCycleRuntimeKotlinExt
     testImplementation deps.junit

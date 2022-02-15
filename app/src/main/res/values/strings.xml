@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">koa2</string>
+    <string name="movie_loading">Please wait while we are loading movies…</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="confirm">Confirm</string>
+    <string name="load_details_message">Please wait while we are loading...</string>
 </resources>
