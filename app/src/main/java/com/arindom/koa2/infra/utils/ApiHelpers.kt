@@ -2,8 +2,10 @@ package com.arindom.koa2.infra.utils
 
 import com.arindom.koa2.domain.repos.ApiResponse
 import com.arindom.koa2.exceptions.ApiExceptions
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 
 fun <T> returnServiceFlow(
@@ -23,4 +25,5 @@ fun <T> returnServiceFlow(
             emit(ApiResponse.Error(ApiExceptions()))
         }
     }
+        .flowOn(Dispatchers.IO)
 }
