@@ -2,7 +2,6 @@ package com.arindom.koa2.domain
 
 import com.arindom.koa2.domain.entities.UiError
 import com.arindom.koa2.domain.entities.toUiError
-import com.arindom.koa2.domain.mappers.IDomainMapper
 import com.arindom.koa2.domain.repos.ApiResponse
 
 
@@ -12,11 +11,11 @@ sealed class DomainWrapper<DomainModel> {
 }
 
 fun <ResponseModel, DomainModel> ApiResponse<ResponseModel>.mapToDomainWrapper(
-    domainMapper: IDomainMapper<ResponseModel, DomainModel>
+    domainMapper: ResponseModel.() -> DomainModel
 ): DomainWrapper<DomainModel> {
     return when (this) {
         is ApiResponse.Error -> DomainWrapper.Error(this.throwable.toUiError())
-        is ApiResponse.Success ->  DomainWrapper.Success(domainMapper.mapToDomainModel(this.data))
+        is ApiResponse.Success ->  DomainWrapper.Success(this.data.domainMapper())
     }
 }
 
