@@ -9,18 +9,26 @@ buildscript {
         nav_version = '2.4.1'
         hilt_version = '2.38.1'
         retrofit_version = '2.9.0'
-        room_version = '2.4.1'
-        okhttp_version= '4.9.3'
-        coil_version= '1.4.0'
+        okhttp_version = '4.9.3'
+        coil_version = '1.4.0'
+        ktor_version = '1.6.7'
+        logback_version = '1.2.10'
+        kotlin_version = '1.6.10'
+        gradle_version = '7.1.2'
+        sqldelight_version = '1.5.3'
     }
     repositories {
         google()
         mavenCentral()
     }
+
     dependencies {
+        classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+        classpath "org.jetbrains.kotlin:kotlin-serialization:$kotlin_version"
+        classpath "com.squareup.sqldelight:gradle-plugin:$sqldelight_version"
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
@@ -57,7 +65,7 @@ ext.deps =
                 //lifecycle
                 lifeCycleRuntimeKotlinExt: "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
                 lifecycleViewmodelKtx    : "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
-                lifecycleViewmOdelCompose: "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version",
+                lifecycleViewmodelCompose: "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version",
 
                 //hilt
                 hilt                     : "com.google.dagger:hilt-android:$hilt_version",
@@ -75,15 +83,24 @@ ext.deps =
                 okHttpLogInterceptor     : "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
 
                 //coil
-                composeCoil             : "io.coil-kt:coil-compose:$coil_version",
+                composeCoil              : "io.coil-kt:coil-compose:$coil_version",
 
-                //room
-                roomRuntime              : "androidx.room:room-runtime:$room_version",
-                roomKotlinExt            : "androidx.room:room-ktx:$room_version",
+                //ktor
+                ktorCore                 : "io.ktor:ktor-client-core:$ktor_version",
+                ktorAndroidEngine        : "io.ktor:ktor-client-android:$ktor_version",
+                ktorClientLogging        : "io.ktor:ktor-client-logging:$ktor_version",
+                ktorClientSerialization  : "io.ktor:ktor-client-serialization:$ktor_version",
+                ktorClientGson           : "io.ktor:ktor-client-gson:$ktor_version",
+
+                //sqlDelight
+                sqlDelight               : "com.squareup.sqldelight:android-driver:$sqldelight_version",
+                sqlDelightCoroutine      : "com.squareup.sqldelight:coroutines-extensions-jvm:$sqldelight_version",
+
+                //logback
+                logbackClassic           : "ch.qos.logback:logback-classic:$logback_version",
 
                 //kapt
                 hitKapt                  : "com.google.dagger:hilt-android-compiler:$hilt_version",
-                roomKapt                 : "androidx.room:room-compiler:$room_version"
         ]
 
 

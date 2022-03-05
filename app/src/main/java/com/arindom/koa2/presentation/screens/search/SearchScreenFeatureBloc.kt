@@ -1,21 +1,27 @@
 package com.arindom.koa2.presentation.screens.search
 
 import com.arindom.koa2.domain.DomainWrapper
-import com.arindom.koa2.domain.usecases.MovieDetailUseCase
+import com.arindom.koa2.domain.usecases.FavouriteMovieUseCase
 import com.arindom.koa2.domain.usecases.SearchMoviesUseCase
 import com.arindom.koa_mvi_core.FeatureBloc
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchScreenFeatureBloc @Inject constructor(
-    private val searchMoviesUseCase: SearchMoviesUseCase
-) :
-    FeatureBloc<SearchScreenEvent, SearchScreenState>(SearchScreenState()) {
+    private val searchMoviesUseCase: SearchMoviesUseCase,
+    private val favouriteMovieUseCase: FavouriteMovieUseCase
+
+) : FeatureBloc<SearchScreenEvent, SearchScreenState>(SearchScreenState()) {
     override fun postWish(wish: SearchScreenEvent) {
         when (wish) {
             is SearchScreenEvent.MovieQueried -> {
                 getMovies(wish.name)
+            }
+            is SearchScreenEvent.OnMovieSelected -> {
+                favouriteMovieUseCase.saveFavouriteMovie(wish.movieEntity)
             }
         }
     }

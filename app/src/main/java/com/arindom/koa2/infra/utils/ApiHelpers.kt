@@ -2,13 +2,14 @@ package com.arindom.koa2.infra.utils
 
 import com.arindom.koa2.domain.repos.ApiResponse
 import com.arindom.koa2.exceptions.ApiExceptions
-import kotlinx.coroutines.Dispatchers
+import io.ktor.client.call.*
+import io.ktor.client.statement.*
+import io.ktor.http.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 
-fun <T> returnServiceFlow(
+fun <T> returnRetroServiceFlow(
     serviceRequest: suspend () -> Response<T>,
     action: (T) -> ApiResponse<T>
 ): Flow<ApiResponse<T>> {
@@ -16,14 +17,37 @@ fun <T> returnServiceFlow(
         kotlin.runCatching {
             serviceRequest()
         }.onSuccess { response ->
-            response.body()?.let {
-                emit(action(it))
-            } ?: kotlin.run {
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    emit(action(it))
+                } ?: kotlin.run {
+                    emit(ApiResponse.Error(ApiExceptions()))
+                }
+            } else {
                 emit(ApiResponse.Error(ApiExceptions()))
             }
         }.onFailure {
             emit(ApiResponse.Error(ApiExceptions()))
         }
     }
-        .flowOn(Dispatchers.IO)
+}
+
+fun <T> returnKtorServiceFlow(
+    serviceRequest: suspend () -> HttpResponse,
+    action: (String) -> ApiResponse<T>
+): Flow<ApiResponse<T>> {
+    return flow<ApiResponse<T>> {
+        kotlin.runCatching {
+            serviceRequest.invoke()
+        }.onSuccess { response ->
+            if (response.status.isSuccess()) {
+                emit(action(response.receive()))
+            } else {
+                emit(ApiResponse.Error(ApiExceptions()))
+            }
+        }.onFailure {
+            emit(ApiResponse.Error(ApiExceptions()))
+        }
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.arindom.koa2.domain.entities
 
-import com.arindom.koa2.infra.repos.responses.MovieDetail
+//import com.arindom.koa2.infra.repos.responses.gson.MovieDetail
+import com.arindom.koa2.infra.repos.responses.serialization.MovieDetail
 
 data class MovieDetailsEntity(
     val movieId: String,
@@ -18,7 +19,7 @@ data class MovieDetailsEntity(
     val awards: List<String>
 )
 
-fun MovieDetail.toMovieDetailsEntity() = MovieDetailsEntity(
+/*fun MovieDetail.toMovieDetailsEntity() = MovieDetailsEntity(
     movieId = this.movieId!!,
     movieName = this.title!!,
     releaseYear = this.year!!,
@@ -32,4 +33,20 @@ fun MovieDetail.toMovieDetailsEntity() = MovieDetailsEntity(
     rate = this.rated!!,
     releaseDate = this.released!!,
     runTime = this.runtime!!
+)*/
+
+fun MovieDetail.toMovieDetailsEntity() = MovieDetailsEntity(
+    movieId = this.movieId,
+    movieName = this.title,
+    releaseYear = this.year,
+    genre = this.genre,
+    director = this.director,
+    actors = this.actors.split(", ") ?: emptyList(),
+    plot = this.plot,
+    poster = this.poster,
+    language = this.language,
+    awards = this.awards.split(". ") ?: emptyList(),
+    rate = this.rated,
+    releaseDate = this.released,
+    runTime = this.runtime
 )

@@ -6,7 +6,7 @@ import com.arindom.koa_mvi_core.UiState
 
 data class SearchScreenState(
     val query: String = "",
-    val data: MoviesEntity? = null,
+    val data: MoviesEntity = MoviesEntity(emptyList()),
     val isLoading: Boolean = false,
     val uiError: UiError? = null
 ) : UiState

@@ -5,6 +5,8 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'com.squareup.sqldelight'
 }
 
 android {
@@ -71,12 +73,23 @@ dependencies {
     implementation deps.retofitGsonConvertor
     implementation deps.okHttpLogInterceptor
 
-    implementation deps.roomRuntime
-    implementation deps.roomKotlinExt
+
+    implementation deps.ktorCore
+    implementation deps.ktorAndroidEngine
+    implementation deps.ktorClientLogging
+    implementation deps.ktorClientSerialization
+    implementation deps.ktorClientGson
+
+    implementation deps.logbackClassic
 
     implementation deps.composeCoil
 
+    implementation deps.sqlDelight
+    implementation deps.sqlDelightCoroutine
+
     implementation deps.lifeCycleRuntimeKotlinExt
+    implementation deps.lifecycleViewmodelCompose
+
     testImplementation deps.junit
     androidTestImplementation deps.androidJunit
     androidTestImplementation deps.androidEspresso
@@ -84,5 +97,10 @@ dependencies {
     debugImplementation deps.composeDebugTooling
 
     kapt deps.hitKapt
-    kapt deps.roomKapt
+}
+
+sqldelight{
+    KaoDatabase{
+        packageName = "com.arindom.koa2"
+    }
 }

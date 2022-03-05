@@ -16,6 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.rememberImagePainter
 import com.arindom.koa2.R
 import com.arindom.koa2.presentation.widgets.KoaAlertInfo
@@ -25,7 +26,7 @@ import com.arindom.koa2.presentation.widgets.KoaLoader
 fun MovieDetail(
     modifier: Modifier = Modifier,
     scaffoldState: ScaffoldState = rememberScaffoldState(),
-    movieDetailBloc: MovieDetailBloc,
+    movieDetailBloc: MovieDetailBloc = viewModel(),
     movieId: String
 ) {
     movieDetailBloc.postWish(MovieDetailEvent.MovieDetailsRequested(movieId = movieId))

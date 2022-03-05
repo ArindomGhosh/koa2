@@ -3,6 +3,8 @@ package com.arindom.koa2.domain
 import com.arindom.koa2.domain.entities.UiError
 import com.arindom.koa2.domain.entities.toUiError
 import com.arindom.koa2.domain.repos.ApiResponse
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 
 sealed class DomainWrapper<DomainModel> {
@@ -15,7 +17,18 @@ fun <ResponseModel, DomainModel> ApiResponse<ResponseModel>.mapToDomainWrapper(
 ): DomainWrapper<DomainModel> {
     return when (this) {
         is ApiResponse.Error -> DomainWrapper.Error(this.throwable.toUiError())
-        is ApiResponse.Success ->  DomainWrapper.Success(this.data.domainMapper())
+        is ApiResponse.Success -> DomainWrapper.Success(this.data.domainMapper())
+    }
+}
+
+fun <ResponseModel, DomainModel> Flow<ApiResponse<ResponseModel>>.mapToDomainWrapperFlow(
+    domainMapper: ResponseModel.() -> DomainModel
+): Flow<DomainWrapper<DomainModel>> {
+    return this.map {
+        when (it) {
+            is ApiResponse.Error -> DomainWrapper.Error(it.throwable.toUiError())
+            is ApiResponse.Success -> DomainWrapper.Success(it.data.domainMapper())
+        }
     }
 }
 

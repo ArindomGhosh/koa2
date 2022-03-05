@@ -3,20 +3,20 @@ package com.arindom.koa2.infra.repos
 import com.arindom.koa2.domain.repos.ApiResponse
 import com.arindom.koa2.domain.repos.ISearchMovie
 import com.arindom.koa2.exceptions.NoDataFoundException
-import com.arindom.koa2.infra.repos.responses.MovieDetail
-import com.arindom.koa2.infra.repos.responses.MovieList
-import com.arindom.koa2.infra.services.IServiceCreator
-import com.arindom.koa2.infra.utils.returnServiceFlow
+import com.arindom.koa2.infra.repos.responses.gson.MovieDetail
+import com.arindom.koa2.infra.repos.responses.gson.MovieList
+import com.arindom.koa2.infra.services.retrofit.IServiceCreator
+import com.arindom.koa2.infra.utils.returnRetroServiceFlow
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 
-class SearchMoviesImpl(
+class SearchMoviesRetroImpl(
     private val serviceCreator: IServiceCreator,
     private val ioDispatcher: CoroutineDispatcher
 ) : ISearchMovie {
     override fun getMovies(movieName: String): Flow<ApiResponse<MovieList>> {
-        return returnServiceFlow({ serviceCreator.omdbService.searchMovies(movieName) }) {
+        return returnRetroServiceFlow({ serviceCreator.omdbService.searchMovies(movieName) }) {
             if (it.isValidResponse) {
                 ApiResponse.Success(it)
             } else {
@@ -26,7 +26,7 @@ class SearchMoviesImpl(
     }
 
     override fun getMovieDetails(movieId: String): Flow<ApiResponse<MovieDetail>> {
-        return returnServiceFlow({ serviceCreator.omdbService.getMovieDetails(movieId = movieId) }) {
+        return returnRetroServiceFlow({ serviceCreator.omdbService.getMovieDetails(movieId = movieId) }) {
             if (it.isValidResponse) {
                 ApiResponse.Success(it)
             } else {

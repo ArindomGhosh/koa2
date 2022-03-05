@@ -1,7 +1,7 @@
-package com.arindom.koa2.infra.services
+package com.arindom.koa2.infra.services.retrofit
 
-import com.arindom.koa2.infra.repos.responses.MovieDetail
-import com.arindom.koa2.infra.repos.responses.MovieList
+import com.arindom.koa2.infra.repos.responses.gson.MovieDetail
+import com.arindom.koa2.infra.repos.responses.gson.MovieList
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

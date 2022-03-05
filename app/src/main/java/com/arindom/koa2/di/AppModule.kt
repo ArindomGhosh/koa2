@@ -1,27 +1,44 @@
 package com.arindom.koa2.di
 
 import android.content.Context
-import androidx.room.Room
-import com.arindom.koa2.infra.local.database.KaoDatabase
+import com.arindom.koa2.KaoDatabase
+import com.arindom.koa2.infra.local.database.dao.FavouriteDao
+import com.arindom.koa2.infra.local.database.dao.FavouriteDaoImpl
+import com.squareup.sqldelight.android.AndroidSqliteDriver
+import com.squareup.sqldelight.db.SqlDriver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
     @Singleton
     @Provides
-    fun providesRoomDb(
-        @ApplicationContext context: Context
-    ): KaoDatabase {
-        return Room.databaseBuilder(
-            context,
-            KaoDatabase::class.java,
-            "kao_database"
-        ).build()
+    fun providesSqlDriver(
+        @ApplicationContext app: Context
+    ): SqlDriver {
+        return AndroidSqliteDriver(
+            schema = KaoDatabase.Schema,
+            context = app,
+            name = "kao.db"
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun provideFavouriteDao(
+        sqliteDriver: SqlDriver,
+        @IoDispatcher coroutineDispatcher: CoroutineDispatcher
+    ): FavouriteDao {
+        return FavouriteDaoImpl(
+            KaoDatabase(sqliteDriver),
+            coroutineDispatcher
+        )
     }
 }

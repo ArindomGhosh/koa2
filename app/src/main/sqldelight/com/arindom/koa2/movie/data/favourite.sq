@@ -1,0 +1,27 @@
+CREATE TABLE favourite(
+    _id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT DEFAULT 0,
+    Uid TEXT NOT NULL,
+    name TEXT NOT NULL,
+    type TEXT NOT NULL,
+    releaseYear TEXT NOT NULL,
+    poster TEXT NOT NULL
+);
+
+getFavouriteByUId:
+SELECT * FROM favourite
+WHERE Uid = :uid;
+
+getAllFavourite:
+SELECT * FROM favourite;
+
+insertFavourite:
+INSERT OR REPLACE
+INTO favourite (Uid,name,type,releaseYear,poster)
+VALUES(?,?,?,?,?);
+
+deleteAll:
+DELETE FROM favourite;
+
+deleteFavouriteForUid:
+DELETE FROM favourite
+WHERE Uid = :uid;

@@ -2,6 +2,7 @@ package com.arindom.koa2.domain.entities
 
 import com.arindom.koa2.exceptions.ApiExceptions
 import com.arindom.koa2.exceptions.NoDataFoundException
+import com.arindom.koa2.exceptions.NoFavouriteFound
 
 data class UiError(
     val header: String,
@@ -18,6 +19,10 @@ fun Throwable.toUiError(): UiError {
         is NoDataFoundException -> UiError(
             header = "No Movie Found",
             message = "No Movie found with name ${this.message}"
+        )
+        NoFavouriteFound -> UiError(
+            header = "No Fav found",
+            message = "No Movies marked favourite."
         )
         else -> UiError(
             header = "Technical Issue",

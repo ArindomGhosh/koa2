@@ -1,6 +1,6 @@
-package com.arindom.koa2.infra.services
+package com.arindom.koa2.infra.services.retrofit
 
-import com.arindom.koa2.infra.services.interceptors.ApiKeyInterceptors
+import com.arindom.koa2.infra.services.retrofit.interceptors.ApiKeyInterceptors
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

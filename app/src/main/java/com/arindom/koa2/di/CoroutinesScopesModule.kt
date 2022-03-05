@@ -18,6 +18,7 @@ annotation class ApplicationScope
 @InstallIn(SingletonComponent::class)
 @Module
 object CoroutinesScopesModule {
+    //https://medium.com/androiddevelopers/create-an-application-coroutinescope-using-hilt-dd444e721528
     @ApplicationScope
     @Singleton
     @Provides

@@ -1,9 +1,9 @@
-package com.arindom.koa2.infra.services.interceptors
+package com.arindom.koa2.infra.services.retrofit.interceptors
 
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class ApiKeyInterceptors : Interceptor {
+class   ApiKeyInterceptors : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
         val originalUrl = original.url

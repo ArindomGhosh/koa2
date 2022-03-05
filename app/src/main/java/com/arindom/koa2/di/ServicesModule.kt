@@ -1,7 +1,7 @@
 package com.arindom.koa2.di
 
-import com.arindom.koa2.infra.services.IServiceCreator
-import com.arindom.koa2.infra.services.ServiceCreator
+import com.arindom.koa2.infra.services.retrofit.IServiceCreator
+import com.arindom.koa2.infra.services.retrofit.ServiceCreator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

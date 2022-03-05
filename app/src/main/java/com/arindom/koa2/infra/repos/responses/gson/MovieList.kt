@@ -1,12 +1,12 @@
-package com.arindom.koa2.infra.repos.responses
+package com.arindom.koa2.infra.repos.responses.gson
 
 import com.google.gson.annotations.SerializedName
 
 data class MovieList(
-    @SerializedName("Response")
-    val isValidResponse: Boolean,
     @SerializedName("Search")
     val movieList: List<Movie>?,
+    @SerializedName("Response")
+    val isValidResponse: Boolean,
     @SerializedName("Error")
     val errorMessage: String?
 ) {
