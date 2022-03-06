@@ -60,6 +60,7 @@ ext.deps =
                 composeMaterial          : "androidx.compose.material:material:$compose_version",
                 composeToolingPreview    : "androidx.compose.ui:ui-tooling-preview:$compose_version",
                 activityCompose          : 'androidx.activity:activity-compose:1.3.1',
+                composeLayout            : "androidx.compose.foundation:foundation-layout:$compose_version",
 
 
                 //lifecycle

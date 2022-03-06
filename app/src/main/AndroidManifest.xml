@@ -11,8 +11,10 @@
         android:supportsRtl="true"
         android:name=".KaoApplication"
         android:theme="@style/Theme.Koa2">
+        <!--        android:name=".presentation.MainActivity" -->
+        <!--        using fragment-->
         <activity
-            android:name=".presentation.MainActivity"
+            android:name=".presentation.KoaMainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Koa2">

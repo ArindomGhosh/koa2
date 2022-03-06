@@ -1,17 +1,18 @@
 package com.arindom.koa2.presentation.screens.moviedetails
 
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -21,15 +22,41 @@ import coil.compose.rememberImagePainter
 import com.arindom.koa2.R
 import com.arindom.koa2.presentation.widgets.KoaAlertInfo
 import com.arindom.koa2.presentation.widgets.KoaLoader
+import com.arindom.koa_mvi_core.foundation.VoidCallback
 
 @Composable
-fun MovieDetail(
+fun MovieDetailScreen(
     modifier: Modifier = Modifier,
+    isEnabled: Boolean = true,
     scaffoldState: ScaffoldState = rememberScaffoldState(),
+    onBack: VoidCallback? = null,
     movieDetailBloc: MovieDetailBloc = viewModel(),
     movieId: String
 ) {
     movieDetailBloc.postWish(MovieDetailEvent.MovieDetailsRequested(movieId = movieId))
+    val backCallback = remember {
+        object : OnBackPressedCallback(isEnabled) {
+            override fun handleOnBackPressed() {
+                onBack?.invoke()
+            }
+        }
+    }
+    SideEffect {
+        backCallback.isEnabled = isEnabled
+    }
+    val backDispatcher = checkNotNull(LocalOnBackPressedDispatcherOwner.current) {
+        "No OnBackPressedDispatcherOwner was provided via LocalOnBackPressedDispatcherOwner"
+    }.onBackPressedDispatcher
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner, backDispatcher) {
+        // Add callback to the backDispatcher
+        backDispatcher.addCallback(lifecycleOwner, backCallback)
+        // When the effect leaves the Composition, remove the callback
+        onDispose {
+            backCallback.remove()
+        }
+    }
+
     Scaffold(
         modifier = modifier.padding(16.dp),
         scaffoldState = scaffoldState

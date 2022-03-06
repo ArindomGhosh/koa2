@@ -59,6 +59,7 @@ dependencies {
     implementation deps.composeMaterial
     implementation deps.composeToolingPreview
     implementation deps.activityCompose
+    implementation deps.composeLayout
 
     implementation deps.androidMaterial
     implementation deps.appCompat

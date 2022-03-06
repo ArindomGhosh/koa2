@@ -32,14 +32,14 @@ fun FavouriteScreen(
         modifier = modifier,
         scaffoldState = scaffoldState,
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-                favouriteFeatureBloc.postWish(FavouriteEvents.DeleteAllFavourites)
-            }) {
+            FloatingActionButton(
+                onClick = {
+                    favouriteFeatureBloc.postWish(FavouriteEvents.DeleteAllFavourites)
+                }) {
                 Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete All Fav")
             }
         },
         floatingActionButtonPosition = FabPosition.End,
-
     ) { padding ->
         Box(
             modifier = Modifier

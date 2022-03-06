@@ -5,8 +5,6 @@ import com.arindom.koa2.domain.usecases.FavouriteMovieUseCase
 import com.arindom.koa2.domain.usecases.SearchMoviesUseCase
 import com.arindom.koa_mvi_core.FeatureBloc
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,7 +16,7 @@ class SearchScreenFeatureBloc @Inject constructor(
     override fun postWish(wish: SearchScreenEvent) {
         when (wish) {
             is SearchScreenEvent.MovieQueried -> {
-                getMovies(wish.name)
+                getMovies(wish.name.trim())
             }
             is SearchScreenEvent.OnMovieSelected -> {
                 favouriteMovieUseCase.saveFavouriteMovie(wish.movieEntity)
